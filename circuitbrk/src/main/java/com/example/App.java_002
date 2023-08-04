@@ -1,0 +1,22 @@
+package com.example;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class App {
+    private static final Logger LOGGER = LogManager.getLogger(App.class);
+
+    public static void main(String[] args) {
+        // Logging examples with different log levels
+        LOGGER.trace("This is a TRACE level log message.");
+        LOGGER.debug("This is a DEBUG level log message.");
+        LOGGER.info("This is an INFO level log message.");
+        LOGGER.warn("This is a WARN level log message.");
+        LOGGER.error("This is an ERROR level log message.");
+
+        // You can also include variables in your log messages
+        int someValue = 42;
+        String someString = "Hello, world!";
+        LOGGER.info("Logging variables: value = {}, string = {}", someValue, someString);
+    }
+}

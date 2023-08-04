@@ -1,0 +1,31 @@
+package com.example;
+
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import com.example.utils.Colors;
+
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+
+import com.example.utils.KafkaAdminClient;
+
+public class App {
+    private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+
+    private static final String postURL = "http://localhost:3000/messages";
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        LOGGER.log(Level.INFO, "Starting the Application...");
+
+        System.out.println(Colors.green("Hello green"));
+        KafkaConsumer<String, CustomerRecord> consumer = KafkaConsumerFactory.createConsumer();
+        AppContext context = new AppContext(consumer, postURL);
+
+        boolean connected = new KafkaAdminClient("localhost:9092").verifyConnection();
+        LOGGER.log(Level.INFO, "connection to kafka:{0}", connected);
+        LOGGER.log(Level.INFO, "Executing business logic.");
+        context.execute();
+
+        LOGGER.log(Level.INFO, "Application finished.");
+    }
+}
